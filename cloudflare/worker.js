@@ -3,6 +3,7 @@
  * - Serves React SPA static assets
  * - Handles contact form API endpoint
  * - Validates US-only IP addresses and stores submissions in D1 database
+ * - Sends email notifications via Resend
  */
 
 const corsHeaders = {
@@ -84,6 +85,8 @@ async function handleContactSubmission(request, env) {
       countryCode
     ).run();
 
+    await sendEmailNotification(formData, env);
+
     return new Response(
       JSON.stringify({
         success: true,
@@ -112,5 +115,39 @@ async function handleContactSubmission(request, env) {
         },
       }
     );
+  }
+}
+
+async function sendEmailNotification(formData, env) {
+  try {
+    const emailBody = {
+      from: 'noreply@notifications.staffordga.com',
+      to: env.NOTIFICATION_EMAIL,
+      subject: `New Contact Form Submission - ${formData.name}`,
+      html: `
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${formData.name}</p>
+        <p><strong>Email:</strong> ${formData.email}</p>
+        ${formData.phone ? `<p><strong>Phone:</strong> ${formData.phone}</p>` : ''}
+        ${formData.company ? `<p><strong>Company:</strong> ${formData.company}</p>` : ''}
+        <p><strong>Message:</strong></p>
+        <p>${formData.message.replace(/\n/g, '<br>')}</p>
+      `,
+    };
+
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(emailBody),
+    });
+
+    if (!response.ok) {
+      console.error('Failed to send email:', await response.text());
+    }
+  } catch (error) {
+    console.error('Error sending email notification:', error);
   }
 }

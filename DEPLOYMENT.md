@@ -8,6 +8,7 @@ This guide will help you deploy the Stafford Group Associates website as a full-
 - React SPA static assets (HTML, CSS, JS)
 - Contact form API endpoint (`/api/submit-contact`)
 - D1 database for contact submissions
+- Email notifications via Resend API
 
 ## Deployment Options
 
@@ -77,7 +78,23 @@ database_id = "YOUR_DATABASE_ID_HERE"  # Replace with actual ID
 wrangler d1 execute stafford-contacts --file=./schema.sql
 ```
 
-### 6. Deploy the Worker
+### 6. Configure Environment Variables
+
+The `cloudflare/wrangler.toml` file already contains the necessary environment variables:
+
+```toml
+[vars]
+RESEND_API_KEY = "re_6oKt4xqJ_4w2L7De2M6RGSzAwvzxQRRRi"
+NOTIFICATION_EMAIL = "info@staffordga.com"
+```
+
+**Email Configuration:**
+- Contact form submissions will be stored in D1 database
+- Email notifications will be sent via Resend from `noreply@notifications.staffordga.com`
+- Notifications are delivered to the `NOTIFICATION_EMAIL` address
+- Update `NOTIFICATION_EMAIL` if you want notifications sent to a different address
+
+### 7. Deploy the Worker
 
 ```bash
 wrangler deploy
@@ -88,24 +105,7 @@ After deployment, you'll get a URL like:
 https://stafford-group-associates.YOUR_SUBDOMAIN.workers.dev
 ```
 
-### 7. Update Environment Variables
-
-Update your `.env` file with the Worker URL:
-
-```env
-VITE_CONTACT_API_URL=https://stafford-group-associates.YOUR_SUBDOMAIN.workers.dev/api/submit-contact
-```
-
-Then rebuild and redeploy:
-
-```bash
-cd ..
-npm run build
-cd cloudflare
-wrangler deploy
-```
-
-**That's it!** Your entire application (frontend + backend) is now live on a single Worker.
+**That's it!** Your entire application (frontend + backend + email notifications) is now live on a single Worker.
 
 ## Custom Domain (Optional)
 
@@ -132,6 +132,7 @@ To use your own domain:
 3. Go to the Contact page and submit a test form (requires US IP)
 4. Check worker logs: `wrangler tail`
 5. View submissions: `wrangler d1 execute stafford-contacts --command="SELECT * FROM contact_submissions"`
+6. Check your email (configured as `NOTIFICATION_EMAIL`) for the notification
 
 ## Updating the Site
 

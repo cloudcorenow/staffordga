@@ -11,6 +11,11 @@ binding = "DB"
 database_name = "stafford-contacts"
 database_id = "fa8516fb-198b-4d33-81df-9624218c08e0"
 
+# Environment Variables
+[vars]
+RESEND_API_KEY = "re_6oKt4xqJ_4w2L7De2M6RGSzAwvzxQRRRi"
+NOTIFICATION_EMAIL = "info@staffordga.com"
+
 # Custom domain (optional - update with your domain)
 # routes = [
 #   { pattern = "yourdomain.com/*", custom_domain = true }
