@@ -29,9 +29,7 @@ const ContactForm: React.FC = () => {
     setIsGeographicError(false);
 
     try {
-      const apiUrl = import.meta.env.VITE_CONTACT_API_URL;
-
-      const response = await fetch(apiUrl, {
+      const response = await fetch('/api/submit-contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
