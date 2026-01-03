@@ -9,7 +9,34 @@ This guide will help you deploy the Stafford Group Associates website as a full-
 - Contact form API endpoint (`/api/submit-contact`)
 - D1 database for contact submissions
 
-## Deployment Steps
+## Deployment Options
+
+You can deploy using either:
+1. **Cloudflare Pages** (recommended - automated deployments from Git)
+2. **Wrangler CLI** (manual deployments)
+
+## Option 1: Cloudflare Pages Deployment
+
+### Setup Steps
+
+1. **Connect your Git repository** to Cloudflare Pages
+2. **Configure build settings:**
+   - Build command: `npm run build`
+   - Build output directory: `dist`
+   - Deploy command: `cd cloudflare && npx wrangler deploy`
+3. **Add D1 database binding** in Cloudflare dashboard (see below)
+4. Push to your repository - deployment happens automatically!
+
+### Important: Deploy Command
+
+In your Cloudflare Pages project settings, set the deploy command to:
+```bash
+cd cloudflare && npx wrangler deploy
+```
+
+This ensures wrangler finds the correct configuration file.
+
+## Option 2: Manual Deployment Steps
 
 ### 1. Install Wrangler CLI
 
