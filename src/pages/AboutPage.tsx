@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import PageHeader from '../components/common/PageHeader';
 import SectionTitle from '../components/common/SectionTitle';
 import Values from '../components/about/Values';
-import CTA from '../components/home/CTA';
 import { motion } from 'framer-motion';
 
 const AboutPage: React.FC = () => {
@@ -64,9 +63,8 @@ const AboutPage: React.FC = () => {
           </div>
         </div>
       </section>
-      
+
       <Values />
-      <CTA />
     </>
   );
 };
