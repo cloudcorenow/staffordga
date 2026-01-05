@@ -31,6 +31,55 @@ export default {
   },
 };
 
+async function checkRateLimit(ipAddress, env) {
+  const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+
+  await env.DB.prepare(
+    'DELETE FROM rate_limits WHERE last_attempt < ?'
+  ).bind(oneHourAgo).run();
+
+  const result = await env.DB.prepare(
+    'SELECT submission_count, first_attempt FROM rate_limits WHERE ip_address = ?'
+  ).bind(ipAddress).first();
+
+  if (!result) {
+    return { allowed: true, count: 0 };
+  }
+
+  const firstAttempt = new Date(result.first_attempt);
+  const hoursSinceFirst = (Date.now() - firstAttempt.getTime()) / (1000 * 60 * 60);
+
+  if (hoursSinceFirst >= 1) {
+    await env.DB.prepare(
+      'DELETE FROM rate_limits WHERE ip_address = ?'
+    ).bind(ipAddress).run();
+    return { allowed: true, count: 0 };
+  }
+
+  const count = result.submission_count;
+  if (count >= 3) {
+    return { allowed: false, count };
+  }
+
+  return { allowed: true, count };
+}
+
+async function updateRateLimit(ipAddress, env) {
+  const existing = await env.DB.prepare(
+    'SELECT submission_count FROM rate_limits WHERE ip_address = ?'
+  ).bind(ipAddress).first();
+
+  if (existing) {
+    await env.DB.prepare(
+      'UPDATE rate_limits SET submission_count = submission_count + 1, last_attempt = datetime("now") WHERE ip_address = ?'
+    ).bind(ipAddress).run();
+  } else {
+    await env.DB.prepare(
+      'INSERT INTO rate_limits (ip_address, submission_count) VALUES (?, 1)'
+    ).bind(ipAddress).run();
+  }
+}
+
 async function handleContactSubmission(request, env) {
   try {
     const countryCode = request.headers.get('CF-IPCountry') || 'UNKNOWN';
@@ -53,6 +102,56 @@ async function handleContactSubmission(request, env) {
     }
 
     const formData = await request.json();
+
+    if (formData.website !== undefined && formData.website !== '') {
+      return new Response(
+        JSON.stringify({
+          error: 'Invalid submission',
+          message: 'Spam detected.',
+        }),
+        {
+          status: 400,
+          headers: {
+            ...corsHeaders,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+    }
+
+    const submissionTime = formData.submittedAt - formData.formLoadTime;
+    if (submissionTime < 3000) {
+      return new Response(
+        JSON.stringify({
+          error: 'Invalid submission',
+          message: 'Form submitted too quickly. Please try again.',
+        }),
+        {
+          status: 400,
+          headers: {
+            ...corsHeaders,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+    }
+
+    const rateLimitCheck = await checkRateLimit(ipAddress, env);
+    if (!rateLimitCheck.allowed) {
+      return new Response(
+        JSON.stringify({
+          error: 'Rate limit exceeded',
+          message: `Too many submissions. Please try again later. (${rateLimitCheck.count}/3 submissions in the last hour)`,
+        }),
+        {
+          status: 429,
+          headers: {
+            ...corsHeaders,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+    }
 
     if (!formData.name || !formData.email || !formData.message) {
       return new Response(
@@ -84,6 +183,8 @@ async function handleContactSubmission(request, env) {
       ipAddress,
       countryCode
     ).run();
+
+    await updateRateLimit(ipAddress, env);
 
     await sendEmailNotification(formData, env);
 

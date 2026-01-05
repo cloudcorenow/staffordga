@@ -21,3 +21,16 @@ ON contact_submissions(created_at);
 -- Create an index on country_code for analytics
 CREATE INDEX IF NOT EXISTS idx_contact_submissions_country
 ON contact_submissions(country_code);
+
+-- Rate Limiting Table
+-- Tracks submission attempts per IP address to prevent spam
+CREATE TABLE IF NOT EXISTS rate_limits (
+  ip_address TEXT PRIMARY KEY,
+  submission_count INTEGER DEFAULT 1,
+  first_attempt TEXT DEFAULT (datetime('now')),
+  last_attempt TEXT DEFAULT (datetime('now'))
+);
+
+-- Create an index on last_attempt for cleanup queries
+CREATE INDEX IF NOT EXISTS idx_rate_limits_last_attempt
+ON rate_limits(last_attempt);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 
@@ -15,6 +15,12 @@ const ContactForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isGeographicError, setIsGeographicError] = useState(false);
+  const [honeypot, setHoneypot] = useState('');
+  const [formLoadTime, setFormLoadTime] = useState<number>(0);
+
+  useEffect(() => {
+    setFormLoadTime(Date.now());
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -28,13 +34,23 @@ const ContactForm: React.FC = () => {
     setError(null);
     setIsGeographicError(false);
 
+    if (honeypot) {
+      setError('Invalid submission detected.');
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const response = await fetch('/api/submit-contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formState),
+        body: JSON.stringify({
+          ...formState,
+          formLoadTime,
+          submittedAt: Date.now(),
+        }),
       });
 
       const data = await response.json();
@@ -90,6 +106,19 @@ const ContactForm: React.FC = () => {
         </motion.div>
       ) : (
         <form onSubmit={handleSubmit}>
+          <div className="hidden" aria-hidden="true">
+            <label htmlFor="website">Website</label>
+            <input
+              type="text"
+              id="website"
+              name="website"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </div>
+
           {error && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
