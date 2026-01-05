@@ -47,7 +47,7 @@ const Services: React.FC = () => {
     {
       icon: <FileText size={40} />,
       title: "Legal Collections",
-      description: "When necessary, our network of attorneys can pursue legal action to recover debts through litigation and judgments."
+      description: "If a resolution cannot be reached through standard collection efforts, we may pursue legal action where authorized or recommend the account to our client for                        possible legal action through our attorney network."
     },
     {
       icon: <LineChart size={40} />,
