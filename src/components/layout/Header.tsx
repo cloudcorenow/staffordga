@@ -52,7 +52,7 @@ const Header: React.FC = () => {
               className="h-20 w-auto group-hover:scale-105 transition-transform duration-300"
             />
             <span className="text-white text-2xl font-bold tracking-wide font-garamond -ml-2">
-              Stafford & Associates
+              Stafford Group & Associates
             </span>
           </Link>
 

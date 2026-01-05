@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
                 className="h-24 w-auto group-hover:scale-105 transition-transform duration-300"
               />
               <span className="text-white text-2xl font-bold tracking-wide font-garamond">
-                Stafford & Associates
+                Stafford Group & Associates
               </span>
             </Link>
             <p className="text-gray-400 mb-6 leading-relaxed">
