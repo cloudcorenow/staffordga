@@ -3,7 +3,6 @@ import Hero from '../components/home/Hero';
 import Features from '../components/home/Features';
 import Services from '../components/home/Services';
 import Stats from '../components/home/Stats';
-import CTA from '../components/home/CTA';
 
 const HomePage: React.FC = () => {
   useEffect(() => {
@@ -16,7 +15,6 @@ const HomePage: React.FC = () => {
       <Features />
       <Services />
       <Stats />
-      <CTA />
     </>
   );
 };
