@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Heart, Shield, Briefcase, BookOpen, Users, Zap } from 'lucide-react';
+import { Heart, Shield, Briefcase, BookOpen } from 'lucide-react';
 import SectionTitle from '../common/SectionTitle';
 
 interface ValueProps {
@@ -51,16 +51,6 @@ const Values: React.FC = () => {
       icon: <BookOpen size={24} />,
       title: "Education",
       description: "We believe in educating debtors about their options and rights, fostering cooperative resolution."
-    },
-    {
-      icon: <Users size={24} />,
-      title: "Partnership",
-      description: "We view our client relationships as long-term partnerships, aligning our goals with your business objectives."
-    },
-    {
-      icon: <Zap size={24} />,
-      title: "Innovation",
-      description: "We continuously improve our methods and technology to deliver more effective and efficient recovery solutions."
     }
   ];
   
