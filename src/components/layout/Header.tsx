@@ -69,7 +69,7 @@ const Header: React.FC = () => {
               </NavLink>
             ))}
             <Link to="/portal" className="ml-4 btn btn-primary">
-              Client Portal
+              Make A Payment
             </Link>
           </div>
 
@@ -97,7 +97,7 @@ const Header: React.FC = () => {
                 </NavLink>
               ))}
               <Link to="/portal" className="btn btn-primary mt-4 text-center">
-                Client Portal
+                Make A Payment
               </Link>
             </div>
           </div>
