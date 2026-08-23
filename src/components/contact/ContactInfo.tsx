@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Headset, FileText, Printer } from 'lucide-react';
 import { ContactInfo as ContactInfoType } from '../../types';
 
 const contactInfo: ContactInfoType = {
@@ -24,32 +24,36 @@ const ContactInfo: React.FC = () => {
         </div>
 
         <div className="flex items-start">
-          <Phone size={24} className="text-white mr-4 flex-shrink-0 mt-1" />
+          <Headset size={24} className="text-white mr-4 flex-shrink-0 mt-1" />
           <div>
-            <h4 className="font-medium text-white mb-1">Phone & Fax</h4>
+            <h4 className="font-medium text-white mb-1">Customer Service / Account Assistance</h4>
+            <p className="text-white">
+              <a href="tel:800-820-2207" className="hover:text-teal-400 transition-colors">
+                Phone: 800-820-2207
+              </a>
+            </p>
+            <p className="text-white mt-1">For account questions, payments, balances, or general assistance.</p>
+          </div>
+        </div>
+
+        <div className="flex items-start">
+          <FileText size={24} className="text-white mr-4 flex-shrink-0 mt-1" />
+          <div>
+            <h4 className="font-medium text-white mb-1">Credit Reporting</h4>
             <p className="text-white">
               <a href={`tel:${contactInfo.phone}`} className="hover:text-teal-400 transition-colors">
                 Phone: {contactInfo.phone}
               </a>
             </p>
-            <div className="mt-5 border-t border-white/20 pt-5">
-              <h4 className="font-medium text-white mb-1">Customer Service / Account Assistance</h4>
-              <p className="text-white">Phone: 800-820-2207</p>
-              <p className="text-white mt-1">For account questions, payments, balances, or general assistance.</p>
-            </div>
-            <div className="mt-5">
-              <h4 className="font-medium text-white mb-1">Credit Reporting</h4>
-              <p className="text-white">
-                <a href={`tel:${contactInfo.phone}`} className="hover:text-teal-400 transition-colors">
-                  Phone: {contactInfo.phone}
-                </a>
-              </p>
-              <p className="text-white mt-1">For questions or disputes regarding credit bureau reporting.</p>
-            </div>
-            <div className="mt-5">
-              <h4 className="font-medium text-white mb-1">Fax</h4>
-              <p className="text-white">855-466-6308</p>
-            </div>
+            <p className="text-white mt-1">For questions or disputes regarding credit bureau reporting.</p>
+          </div>
+        </div>
+
+        <div className="flex items-start">
+          <Printer size={24} className="text-white mr-4 flex-shrink-0 mt-1" />
+          <div>
+            <h4 className="font-medium text-white mb-1">Fax</h4>
+            <p className="text-white">855-466-6308</p>
           </div>
         </div>
 
