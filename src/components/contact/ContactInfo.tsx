@@ -32,7 +32,24 @@ const ContactInfo: React.FC = () => {
                 Phone: {contactInfo.phone}
               </a>
             </p>
-            <p className="text-white">Fax: 855-466-6308</p>
+            <div className="mt-5 border-t border-white/20 pt-5">
+              <h4 className="font-medium text-white mb-1">Customer Service / Account Assistance</h4>
+              <p className="text-white">Phone: [NEW CUSTOMER SERVICE NUMBER]</p>
+              <p className="text-white mt-1">For account questions, payments, balances, or general assistance.</p>
+            </div>
+            <div className="mt-5">
+              <h4 className="font-medium text-white mb-1">Credit Reporting</h4>
+              <p className="text-white">
+                <a href={`tel:${contactInfo.phone}`} className="hover:text-teal-400 transition-colors">
+                  Phone: {contactInfo.phone}
+                </a>
+              </p>
+              <p className="text-white mt-1">For questions or disputes regarding credit bureau reporting.</p>
+            </div>
+            <div className="mt-5">
+              <h4 className="font-medium text-white mb-1">Fax</h4>
+              <p className="text-white">855-466-6308</p>
+            </div>
           </div>
         </div>
 
