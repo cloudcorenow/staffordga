@@ -34,7 +34,7 @@ const ContactInfo: React.FC = () => {
             </p>
             <div className="mt-5 border-t border-white/20 pt-5">
               <h4 className="font-medium text-white mb-1">Customer Service / Account Assistance</h4>
-              <p className="text-white">Phone: [NEW CUSTOMER SERVICE NUMBER]</p>
+              <p className="text-white">Phone: 800-820-2207</p>
               <p className="text-white mt-1">For account questions, payments, balances, or general assistance.</p>
             </div>
             <div className="mt-5">
