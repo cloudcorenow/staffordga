@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Shield, TrendingUp, Users } from 'lucide-react';
+import { ArrowRight, Shield } from 'lucide-react';
 
 const Hero: React.FC = () => {
   return (
@@ -59,7 +59,7 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4 mb-16"
+              className="flex flex-col sm:flex-row gap-4"
             >
               <Link
                 to="/contact"
@@ -68,25 +68,6 @@ const Hero: React.FC = () => {
                 Get Started
                 <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="grid grid-cols-3 gap-4 md:gap-8 pt-8 border-t border-gray-300"
-            >
-              {[
-                { icon: Users, label: 'Expert Team', value: '25+' },
-                { icon: TrendingUp, label: 'Recovery Rate', value: '95%' },
-                { icon: Shield, label: 'Years Experience', value: '20+' }
-              ].map((stat, index) => (
-                <div key={index} className="text-center lg:text-left">
-                  <stat.icon className="text-primary-600 mb-3 mx-auto lg:mx-0" size={28} />
-                  <div className="text-2xl md:text-3xl font-bold text-gray-900 mb-1">{stat.value}</div>
-                  <div className="text-xs md:text-sm text-gray-700 leading-tight">{stat.label}</div>
-                </div>
-              ))}
             </motion.div>
           </div>
 
