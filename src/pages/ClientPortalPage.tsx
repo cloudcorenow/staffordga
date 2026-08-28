@@ -18,34 +18,32 @@ const ClientPortalPage: React.FC = () => {
       
       <section className="section">
         <div className="container-custom">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="card hover:shadow-xl transition-shadow"
-              >
-                <div className="p-8 text-center">
-                  <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <CreditCard size={32} className="text-primary-600" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-primary-800 mb-4">Pay Online</h3>
-                  <p className="text-gray-600 mb-6">
-                    Make a secure payment through our payment portal
-                  </p>
-                  <a 
-                    href="https://app.simplicitycollect.com/PaymentPortal.aspx?paymentid" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="btn btn-primary w-full"
-                  >
-                    Access Payment Portal
-                  </a>
+          <div className="max-w-2xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="card hover:shadow-xl transition-shadow"
+            >
+              <div className="p-10 text-center">
+                <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <CreditCard size={32} className="text-primary-600" />
                 </div>
-              </motion.div>
-            </div>
+                <h3 className="text-2xl font-bold text-primary-800 mb-4">Pay Online</h3>
+                <p className="text-gray-600 mb-8">
+                  Make a secure payment through our payment portal. You will be redirected to our trusted payment partner to complete your transaction.
+                </p>
+                <a 
+                  href="https://app.simplicitycollect.com/PaymentPortal.aspx?paymentid" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="btn btn-primary w-full"
+                >
+                  Access Payment Portal
+                </a>
+              </div>
+            </motion.div>
 
             <div className="mt-12 p-6 bg-gray-50 rounded-lg">
               <h4 className="text-lg font-bold text-primary-800 mb-4">Important Notice</h4>
