@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Percent, Users, Award, CreditCard } from 'lucide-react';
+import { Monitor, ShieldCheck, Headset } from 'lucide-react';
 
 interface StatItemProps {
   icon: React.ReactNode;
@@ -30,24 +30,19 @@ const StatItem: React.FC<StatItemProps> = ({ icon, value, label, delay }) => {
 const Stats: React.FC = () => {
   const stats = [
     {
-      icon: <Percent size={32} />,
-      value: "32%",
-      label: "Average Recovery Rate"
+      icon: <Monitor size={32} />,
+      value: "Online Access",
+      label: "Review your account when it suits you"
     },
     {
-      icon: <Users size={32} />,
-      value: "850+",
-      label: "Satisfied Clients"
+      icon: <ShieldCheck size={32} />,
+      value: "Secure Payments",
+      label: "Make payments through a protected portal"
     },
     {
-      icon: <Award size={32} />,
-      value: "25+",
-      label: "Years of Experience"
-    },
-    {
-      icon: <CreditCard size={32} />,
-      value: "$250M+",
-      label: "Recovered for Clients"
+      icon: <Headset size={32} />,
+      value: "Helpful Assistance",
+      label: "Get answers when you need them"
     }
   ];
   
@@ -56,7 +51,7 @@ const Stats: React.FC = () => {
       <div className="absolute inset-0 bg-grid-pattern opacity-5" />
 
       <div className="container-custom relative z-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
           {stats.map((stat, index) => (
             <StatItem
               key={index}
