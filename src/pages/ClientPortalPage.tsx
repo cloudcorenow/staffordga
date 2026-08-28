@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { CreditCard, MessageCircle } from 'lucide-react';
+import { CreditCard } from 'lucide-react';
 import PageHeader from '../components/common/PageHeader';
 
 const ClientPortalPage: React.FC = () => {
@@ -42,32 +42,6 @@ const ClientPortalPage: React.FC = () => {
                     className="btn btn-primary w-full"
                   >
                     Access Payment Portal
-                  </a>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="card hover:shadow-xl transition-shadow"
-              >
-                <div className="p-8 text-center">
-                  <div className="w-16 h-16 bg-accent-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <MessageCircle size={32} className="text-accent-600" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-primary-800 mb-4">Payment Arrangements</h3>
-                  <p className="text-gray-600 mb-6">
-                    Set up a flexible payment plan that works for you
-                  </p>
-                  <a
-                    href="https://app.trykredit.com/enroll/welcome?r=staffordgroupweb"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn bg-gradient-to-r from-accent-500 to-accent-600 text-white hover:from-accent-600 hover:to-accent-700 hover:shadow-lg focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 w-full"
-                  >
-                    Discuss Payment Options
                   </a>
                 </div>
               </motion.div>
