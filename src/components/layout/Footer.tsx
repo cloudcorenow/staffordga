@@ -114,9 +114,10 @@ const Footer: React.FC = () => {
 
         <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-400 text-sm">
-              &copy; {currentYear} Stafford Group. All rights reserved.
-            </p>
+            <div className="text-gray-400 text-sm text-center md:text-left">
+              <p>&copy; {currentYear} Stafford Group. All rights reserved.</p>
+              <p className="mt-1 text-gray-500 text-xs">California-DFPI License# 10757-99</p>
+            </div>
             <p className="text-gray-500 text-xs text-center md:text-right max-w-2xl">
               This is a debt collection company. This is an attempt to collect a debt and any information obtained will be used for that purpose.
             </p>
